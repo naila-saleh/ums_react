@@ -4,6 +4,7 @@ import About from "./pages/about/About.jsx";
 import Home from "./pages/home/Home.jsx";
 import Users from "./pages/users/Users.jsx";
 import User from "./pages/user/User.jsx";
+import Create from "./pages/user/Create.jsx";
 
 const router = createBrowserRouter([
     {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
             {
                 path: "about",
                 element: <About />
+            },
+            {
+                path: "user/create",
+                element: <Create />
             },
             {
                 path: "users",
