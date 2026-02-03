@@ -1,8 +1,29 @@
 import useAxios from "../../hooks/useAxios.jsx";
 import Loader from "../../components/loader/Loader.jsx";
+import User from "../../components/user/User.jsx";
+import axios from "axios";
+import {Bounce, toast} from "react-toastify";
 
 export default function Users() {
     const {data, loading, error} = useAxios(`${import.meta.env.VITE_BURL}/users?limit=1000`);
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(`${import.meta.env.VITE_BURL}/users/${id}`);
+            toast.success('user deleted successfully', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+        }catch (e) {
+            console.log(e);
+        }
+    }
     if (loading) return <Loader />;
     if (error) return <div>Error: {error.message}</div>;
     return (
@@ -10,15 +31,7 @@ export default function Users() {
             <div className={"container text-center"}>
                 <div className={"row g-3"}>
                     {data.users.map(user => (
-                        <div className={"col-md-4"} key={user.id}>
-                            <div className={"card"}>
-                                <div className={"card-body"}>
-                                    <h5 className={"card-title"}>{user.name}</h5>
-                                    <p className={"card-text"}>{user.email}</p>
-                                    <img src={user.imageUrl} className={"w-100"} alt={user.name}/>
-                                </div>
-                            </div>
-                        </div>
+                        <User user={user} onDelete={handleDelete}/>
                     ))}
                 </div>
             </div>

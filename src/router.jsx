@@ -3,6 +3,7 @@ import MainLayout from "./layouts/MainLayout.jsx";
 import About from "./pages/about/About.jsx";
 import Home from "./pages/home/Home.jsx";
 import Users from "./pages/users/Users.jsx";
+import User from "./pages/user/User.jsx";
 
 const router = createBrowserRouter([
     {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
             {
                 path: "users",
                 element: <Users />
+            },
+            {
+                path: "users/:id",
+                element: <User />
             }
         ]
     }
